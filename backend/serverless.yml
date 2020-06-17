@@ -52,6 +52,27 @@ functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
+  GetTravels:
+    handler: src/lambda/http/getUserTravels.handler
+    events:
+      - http:
+          method: get
+          path: travels
+          authorizer: Auth
+          cors: true
+    iamRoleStatementsName: ${self:provider.environment.APPNAME}-${self:provider.stage}-GetTravelsLambdaRole
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TRAVELS_TABLE}/index/${self:provider.environment.USER_ID_INDEX}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource:
+        - "*"    
+    
   CreateTravel:
     handler: src/lambda/http/createTravel.handler
     events:
