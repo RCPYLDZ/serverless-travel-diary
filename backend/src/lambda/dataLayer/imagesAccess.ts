@@ -24,6 +24,20 @@ export class ImagesAccess {
         }).promise();
         return travelImageRecord;
     }
+
+    async getTravelImages(travelId: string): Promise<TravelImage[]> {
+        logger.info("getTravelImages is called.", {travelId});
+        const result = await this.docClient.query({
+            TableName: this.travelImagesTable,
+            KeyConditionExpression: 'travelId = :travelId',
+            ExpressionAttributeValues: {
+              ':travelId': travelId
+            },
+            ScanIndexForward: false
+          }).promise();
+        const items = result.Items;
+        return items as TravelImage[];
+    }
 }
 
 function createDynamoDBClient() {

@@ -204,6 +204,30 @@ functions:
         Action:
           - dynamodb:PutItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TRAVEL_IMAGES_TABLE}
+  GetTravelImages:
+    handler: src/lambda/http/getTravelImages.handler
+    events:
+      - http:
+          method: get
+          path: images/{travelId}
+          authorizer: Auth
+          cors: true
+    iamRoleStatementsName: ${self:provider.environment.APPNAME}-${self:provider.stage}-GetTravelImagesLambdaRole
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TRAVELS_TABLE}
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TRAVEL_IMAGES_TABLE}
+      - Effect: Allow
+        Action:
+          - xray:PutTraceSegments
+          - xray:PutTelemetryRecords
+        Resource:
+          - "*"   
 resources:
   Resources:
     GatewayResponseDefault4XX:
@@ -251,9 +275,13 @@ resources:
         AttributeDefinitions:
           - AttributeName: travelId
             AttributeType: S
+          - AttributeName: imageId
+            AttributeType: S
         KeySchema:
           - AttributeName: travelId
             KeyType: HASH
+          - AttributeName: imageId
+            KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:provider.environment.TRAVEL_IMAGES_TABLE}
       

@@ -67,3 +67,8 @@ export async function getUserTravels(userId: string): Promise<Travel[]> {
     logger.info("getUserTravels is called.",{userId});
     return await travelsAccess.getUserTravels(userId);
 }
+
+export async function getTravelImages(travelId: string): Promise<TravelImage[]> {
+    logger.info("getTravelImages is called.", {travelId});
+    return await imagesAccess.getTravelImages(travelId);
+}
