@@ -38,6 +38,16 @@ export class ImagesAccess {
         const items = result.Items;
         return items as TravelImage[];
     }
+
+    async deleteTravelImages(travelId: string): Promise<void>{
+      logger.info("deleteTravelImaeges is called.",{travelId});
+      await this.docClient.delete({
+        TableName: this.travelImagesTable,
+        Key: {
+          "travelId": travelId
+        }
+      }).promise();
+    }
 }
 
 function createDynamoDBClient() {

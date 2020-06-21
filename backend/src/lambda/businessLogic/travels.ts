@@ -5,9 +5,9 @@ import { Travel } from '../../models/Travel';
 import { CreateTravelRequest } from '../../requests/CreateTravelRequest';
 import { TravelsAccess } from '../dataLayer/travelsAccess';
 import { UpdateTravelRequest } from '../../requests/UpdateTravelRequest';
-import { S3Acceess } from '../../resourceLayer/s3Access';
 import { ImagesAccess } from '../dataLayer/imagesAccess';
 import { TravelImage } from '../../models/TravelImage';
+import { S3Acceess } from '../resourceLayer/s3Access';
 
 const logger = createLogger('travels');
 const travelsAccess = new TravelsAccess(); 
@@ -71,4 +71,16 @@ export async function getUserTravels(userId: string): Promise<Travel[]> {
 export async function getTravelImages(travelId: string): Promise<TravelImage[]> {
     logger.info("getTravelImages is called.", {travelId});
     return await imagesAccess.getTravelImages(travelId);
+}
+
+export async function deleteTravelImages(travelId: string): Promise<void>{
+    logger.info("deleteTravelImages is called.",{travelId});
+    const images: TravelImage[] = await getTravelImages(travelId);
+    for (let index = 0; index < images.length; index++) {
+        const travelImage: TravelImage = images[index];
+        const imageId = travelImage.travelId+ "%"+travelImage.imageId;
+        await s3Access.deleteImage(imageId);
+    }
+    return await imagesAccess.deleteTravelImages(travelId);
+    
 }

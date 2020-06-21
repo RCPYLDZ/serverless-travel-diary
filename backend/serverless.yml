@@ -145,6 +145,15 @@ functions:
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TRAVELS_TABLE}
       - Effect: Allow
         Action:
+          - dynamodb:Query
+          - dynamodb:DeleteItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TRAVEL_IMAGES_TABLE}
+      - Effect: Allow
+        Action:
+          - s3:DeleteObject
+        Resource: arn:aws:s3:::${self:provider.environment.TRAVEL_IMAGES_S3_BUCKET}/* 
+      - Effect: Allow
+        Action:
           - xray:PutTraceSegments
           - xray:PutTelemetryRecords
         Resource:

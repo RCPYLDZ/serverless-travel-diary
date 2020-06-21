@@ -25,7 +25,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
             };
         }
         await deleteTravel(userId,travelId);
-        // TODO: Delete attachment will be implemented
+        //await deleteTravelImages(travelId);
       }catch(e){
         logger.error("An error occured.", {e})
         return {
