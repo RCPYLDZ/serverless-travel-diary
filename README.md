@@ -6,7 +6,7 @@ Simply plan and store informations about your travels.
 - Add/Update Travel
 - Delete Travel
 - Add Image To Travel
-- Show Travel images
+- Show Travel Images
 
 # How to run the application
 
