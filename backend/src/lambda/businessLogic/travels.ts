@@ -30,7 +30,7 @@ export async function createTravel(createTravelRequest: CreateTravelRequest,user
 }
 
 export async function updateTravel(updateTravelRequest: UpdateTravelRequest,travelId: string, userId: string): Promise<void>{
-    logger.info('updateTodo called.',{
+    logger.info('updateTravel called.',{
         updateTravelRequest,
         travelId,
         userId
