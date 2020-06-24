@@ -64,7 +64,7 @@ export class EditTravel extends React.PureComponent<EditTravelProps,EditTravelSt
     render() {
         return (
           <div style={{justifyContent:'center', alignItems:'center'}}>
-            <h1>Edit Travel Content</h1>
+            <h1>{this.state.travel.id ? 'Edit' : 'Create'} Travel Content</h1>
             <Form>
                 <Form.Input label='Location' placeholder='Location' type="text" value={this.state.travel.location}
                     onChange={e => this.onFieldValueChanged('location',e.target.value)}>
