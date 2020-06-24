@@ -1,1 +1,1 @@
-# Serverless Self Managed Public Library
+# Serverless Travels Diary App
