@@ -30,3 +30,29 @@ cd client
 npm install
 npm run start
 ```
+
+# Screenshots
+
+### Index Before Login
+
+![Alt text](images/IndexBeforeLogin.png?raw=true "Before Login")
+
+### Index After Login
+
+![Alt text](images/IndexAfterLogin.png?raw=true "After Login")
+
+### Create Travel
+
+![Alt text](images/CreateTravel.png?raw=true "Create Travel")
+
+### Update Travel
+
+![Alt text](images/UpdateTravel.png?raw=true "Update Travel")
+
+### Show Travel Images
+
+![Alt text](images/TravelImages.png?raw=true "Show Travel Images")
+
+### Upload Travel Image
+
+![Alt text](images/UploadImage.png?raw=true "Upload Travel Image")
